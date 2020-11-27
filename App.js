@@ -7,10 +7,26 @@ const App=()=>{
   const [price,setPrice]=useState('')
   const [percentage,setPercentage]=useState('')
   const savedPrice=()=>{
-  return <Text style={{fontWeight:'bold',fontSize:30}}>Rs.{Math.floor(price*(percentage/100)) }</Text>
+  
+    if((price >0 && percentage>0 && percentage<=100)){
+      return <Text style={{fontWeight:'bold',fontSize:30,color:'white'}}>Rs.{(price*(percentage/100)).toFixed(2) }</Text>
+    }
+    else{
+    return <Text style={{fontSize:15,color:'white'}}>Price must be greater than 0
+     and percentage must be between 0 and 100 and both must be numbers.</Text>
+    }
+  
   }
+  
   const finalPrice=()=>{
-    return <Text style={{fontWeight:'bold',fontSize:30}}>Rs. {price-(Math.floor(price*(percentage/100)))}</Text>
+      if((price > 0 && percentage > 0 && percentage<=100))
+      return <Text style={{fontWeight:'bold',fontSize:30,color:'white'}}>Rs. 
+      {(price-(Math.floor(price*(percentage/100)))).toFixed(2)}</Text>
+
+      else{
+      return <Text style={{fontSize:15,color:'white'}}>Price must be greater than 0
+      and percentage must be between 0 and 100 and both must be numbers.</Text>
+      } 
   }
   return(
     <View style={styles.container}>
@@ -24,13 +40,14 @@ const App=()=>{
        placeholder='Enter Dicount Percentage'
        onChangeText={percentage => setPercentage(percentage)}
        ></TextInput>
+       
          {/* <TouchableOpacity onPress={}>
            <View style={styles.button}>
              <Text style={styles.buttonText}>Calculate</Text>
            </View>
          </TouchableOpacity> */}
         <View style={styles.ResultTextContainer}>
-        <Text style={styles.displayResultText}>You saved: {"\n"} {savedPrice()}</Text>
+        <Text style={styles.displayResultText}>You saved:{"\n"} {savedPrice()}</Text>
         <Text style={styles.displayResultText}>Final Price:{"\n"} {finalPrice()}</Text>
         </View>
       </View>   
