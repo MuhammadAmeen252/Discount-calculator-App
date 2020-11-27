@@ -1,19 +1,38 @@
 import React, { useState } from 'react';
-import {StyleSheet,View,Text,Button, TextInput } from 'react-native';
+import {StyleSheet,View,Text, TextInput, TouchableOpacity } from 'react-native';
 
 
 const App=()=>{
+
+  const [price,setPrice]=useState('')
+  const [percentage,setPercentage]=useState('')
+  const savedPrice=()=>{
+  return <Text style={{fontWeight:'bold',fontSize:30}}>Rs.{Math.floor(price*(percentage/100)) }</Text>
+  }
+  const finalPrice=()=>{
+    return <Text style={{fontWeight:'bold',fontSize:30}}>Rs. {price-(Math.floor(price*(percentage/100)))}</Text>
+  }
   return(
     <View style={styles.container}>
       <View style={styles.title}><Text style={styles.titleText} >Discount Calculator</Text></View>
       <View style={styles.inpContainer}>
       <TextInput style={styles.textInpBox}
        placeholder='Enter Original Price'
+       onChangeText={price => setPrice(price)}
        ></TextInput>
        <TextInput style={styles.textInpBox}
        placeholder='Enter Dicount Percentage'
+       onChangeText={percentage => setPercentage(percentage)}
        ></TextInput>
-      {/* <Button title="ADD TO DO"></Button> */}
+         {/* <TouchableOpacity onPress={}>
+           <View style={styles.button}>
+             <Text style={styles.buttonText}>Calculate</Text>
+           </View>
+         </TouchableOpacity> */}
+        <View style={styles.ResultTextContainer}>
+        <Text style={styles.displayResultText}>You saved: {"\n"} {savedPrice()}</Text>
+        <Text style={styles.displayResultText}>Final Price:{"\n"} {finalPrice()}</Text>
+        </View>
       </View>   
     </View>
   )
@@ -23,29 +42,40 @@ const styles=StyleSheet.create({
     margin:10,
     flex: 1,
     padding: 24,
-    backgroundColor: "#eaeaea"
   },
   inpContainer:{
     margin:10,
   },
   textInpBox:{
-    borderColor:'blue',
+    borderColor:'#2a9df4',
     borderBottomWidth:3,
-    width:'80%',
+    width:'100%',
     marginRight:10,
     padding:5,  
     fontSize:18,
-    color:'blue'
+    color:'grey'
   },
   title:{
     width:'100%',
-    backgroundColor:'yellow',
+    
     alignItems:'center'
   }
   ,titleText:{
     fontSize:30,
     fontWeight:'bold',
-    color:'blue'
+    color:'#1167b1'
+  },
+  ResultTextContainer:{
+    margin:20,
+    backgroundColor:'#2a9df4',
+    borderRadius:10,
+    borderColor:'grey',
+    padding:15
+  },
+  displayResultText:{
+    fontSize:20,
+    margin:5,
+    color:'white'
   }
 })
 export default App
